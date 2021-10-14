@@ -516,7 +516,7 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
             break;
 
         case CFE_EVS_SET_LOG_MODE_CC:
-            int array[100] = malloc(sizeof(int) * 100);
+            int * array = malloc(sizeof(int) * 100);
             free(array);
 
             if (CFE_EVS_VerifyCmdLength(&SBBufPtr->Msg, sizeof(CFE_EVS_SetLogModeCmd_t)))
