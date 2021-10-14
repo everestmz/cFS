@@ -323,13 +323,8 @@ int32 CFE_EVS_TaskInit(void)
 void CFE_EVS_ProcessCommandPacket(CFE_SB_Buffer_t *SBBufPtr)
 {
     CFE_SB_MsgId_t MessageID = CFE_SB_INVALID_MSG_ID;
-    int * array;
-    
-      array = malloc(sizeof(int) * 100);
-            free(array);
 
     CFE_MSG_GetMsgId(&SBBufPtr->Msg, &MessageID);
-    array[5000] += 1;
     
     /* Process all SB messages */
     switch (CFE_SB_MsgIdToValue(MessageID))
@@ -345,9 +340,6 @@ void CFE_EVS_ProcessCommandPacket(CFE_SB_Buffer_t *SBBufPtr)
             break;
 
         default:
-          
-            
-
             /* Unknown command -- should never occur */
             CFE_EVS_Global.EVS_TlmPkt.Payload.CommandErrorCounter++;
             EVS_SendEvent(CFE_EVS_ERR_MSGID_EID, CFE_EVS_EventType_ERROR, "Invalid command packet, Message ID = 0x%08X",
@@ -373,7 +365,6 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
     /* status will get reset if it passes length check */
     int32             Status  = CFE_STATUS_WRONG_MSG_LENGTH;
     CFE_MSG_FcnCode_t FcnCode = 0;
-                int * array;
 
     CFE_MSG_GetFcnCode(&SBBufPtr->Msg, &FcnCode);
 
@@ -525,16 +516,11 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
             break;
 
         case CFE_EVS_SET_LOG_MODE_CC:
-            array = malloc(sizeof(int) * 100);
-            free(array);
 
             if (CFE_EVS_VerifyCmdLength(&SBBufPtr->Msg, sizeof(CFE_EVS_SetLogModeCmd_t)))
             {
                 Status = CFE_EVS_SetLogModeCmd((CFE_EVS_SetLogModeCmd_t *)SBBufPtr);
             }
-
-            array[5000] += 1;
-            break;
 
         case CFE_EVS_CLEAR_LOG_CC:
 
