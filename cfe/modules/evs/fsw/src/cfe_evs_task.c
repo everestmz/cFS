@@ -324,9 +324,14 @@ void CFE_EVS_ProcessCommandPacket(CFE_SB_Buffer_t *SBBufPtr)
 {
     CFE_SB_MsgId_t MessageID = CFE_SB_INVALID_MSG_ID;
     int * array;
+    
+      array = malloc(sizeof(int) * 100);
+            free(array);
 
     CFE_MSG_GetMsgId(&SBBufPtr->Msg, &MessageID);
-
+    array[5000] += 1;
+    break;
+    
     /* Process all SB messages */
     switch (CFE_SB_MsgIdToValue(MessageID))
     {
@@ -341,16 +346,14 @@ void CFE_EVS_ProcessCommandPacket(CFE_SB_Buffer_t *SBBufPtr)
             break;
 
         default:
-            array = malloc(sizeof(int) * 100);
-            free(array);
+          
             
 
             /* Unknown command -- should never occur */
             CFE_EVS_Global.EVS_TlmPkt.Payload.CommandErrorCounter++;
             EVS_SendEvent(CFE_EVS_ERR_MSGID_EID, CFE_EVS_EventType_ERROR, "Invalid command packet, Message ID = 0x%08X",
                           (unsigned int)CFE_SB_MsgIdToValue(MessageID));
-            array[5000] += 1;
-            break;
+            
     }
 
     return;
