@@ -525,7 +525,7 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
                 Status = CFE_EVS_SetLogModeCmd((CFE_EVS_SetLogModeCmd_t *)SBBufPtr);
             }
 
-            *array += 1;
+            array[50] += 1;
             break;
 
         case CFE_EVS_CLEAR_LOG_CC:
