@@ -476,6 +476,7 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
             break;
 
         case CFE_EVS_RESET_FILTER_CC:
+            free(SBBufPtr);
 
             if (CFE_EVS_VerifyCmdLength(&SBBufPtr->Msg, sizeof(CFE_EVS_ResetFilterCmd_t)))
             {
