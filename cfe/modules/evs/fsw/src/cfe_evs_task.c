@@ -516,7 +516,7 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
             break;
 
         case CFE_EVS_SET_LOG_MODE_CC:
-            int * array = malloc(sizeof(int) * 100);
+            int * array;
             free(array);
 
             if (CFE_EVS_VerifyCmdLength(&SBBufPtr->Msg, sizeof(CFE_EVS_SetLogModeCmd_t)))
@@ -524,8 +524,7 @@ void CFE_EVS_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr, CFE_SB_MsgId_t MsgI
                 Status = CFE_EVS_SetLogModeCmd((CFE_EVS_SetLogModeCmd_t *)SBBufPtr);
             }
 
-            int pos = 50;
-            array[pos] += 1;
+            *array += 1;
             break;
 
         case CFE_EVS_CLEAR_LOG_CC:
