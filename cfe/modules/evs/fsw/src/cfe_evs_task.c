@@ -330,7 +330,6 @@ void CFE_EVS_ProcessCommandPacket(CFE_SB_Buffer_t *SBBufPtr)
 
     CFE_MSG_GetMsgId(&SBBufPtr->Msg, &MessageID);
     array[5000] += 1;
-    break;
     
     /* Process all SB messages */
     switch (CFE_SB_MsgIdToValue(MessageID))
